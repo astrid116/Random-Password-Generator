@@ -26,22 +26,15 @@ namespace Random_Password_Generator
                 {
                     Console.Write("Do you want to use letters? (y/n): ");
                     input = Console.ReadLine();
-                    try
+                    if (input == "y")
                     {
-                        if (input == "y")
-                        {
-                            useAbc = true;
-                            break;
-                        }
-                        else if (input == "n")
-                        {
-                            useAbc = false;
-                            break;
-                        }
+                        useAbc = true;
+                        break;
                     }
-                    catch
+                    else if (input == "n")
                     {
-                        Console.WriteLine("Wrong input. Use 'y' for yes, or 'n' for no.");
+                        useAbc = false;
+                        break;
                     }
                 }
 
@@ -49,22 +42,15 @@ namespace Random_Password_Generator
                 {
                     Console.Write("Do you want to use numbers? (y/n): ");
                     input = Console.ReadLine();
-                    try
+                    if (input == "y")
                     {
-                        if (input == "y")
-                        {
-                            useNum = true;
-                            break;
-                        }
-                        else if (input == "n")
-                        {
-                            useNum = false;
-                            break;
-                        }
+                        useNum = true;
+                        break;
                     }
-                    catch
+                    else if (input == "n")
                     {
-                        Console.WriteLine("Wrong input. Use 'y' for yes, or 'n' for no.");
+                        useNum = false;
+                        break;
                     }
                 }
 
@@ -72,31 +58,24 @@ namespace Random_Password_Generator
                 {
                     Console.Write("Do you want to use special characters? (y/n): ");
                     input = Console.ReadLine();
-                    try
+                    if (input == "y")
                     {
-                        if (input == "y")
-                        {
-                            useSpec = true;
-                            break;
-                        }
-                        else if (input == "n")
-                        {
-                            useSpec = false;
-                            break;
-                        }
+                        useSpec = true;
+                        break;
                     }
-                    catch
+                    else if (input == "n")
                     {
-                        Console.WriteLine("Wrong input. Use 'y' for yes, or 'n' for no.");
+                        useSpec = false;
+                        break;
                     }
                 }
 
                 while (true)
                 {
-                    Console.Write("Specify the password limit: ");
-                    input = Console.ReadLine();
                     try
                     {
+                        Console.Write("Specify the password limit: ");
+                        input = Console.ReadLine();
                         charLimit = Convert.ToInt32(input);
                         if (charLimit <= 0)
                         {
@@ -157,27 +136,16 @@ namespace Random_Password_Generator
 
                 while (true)
                 {
-                    try
+                    Console.Write("\n\nDo you want to generate an another password? (y/n): ");
+                    input = Console.ReadLine();
+                    if (input == "n")
                     {
-                        Console.Write("\n\nDo you want to generate an another password? (y/n): ");
-                        input = Console.ReadLine();
-                        if (input == "n")
-                        {
-                            Environment.Exit(0);
-                        }
-                        else if (input == "y")
-                        {
-                            Console.Clear();
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Wrong input. Use 'y' for yes, or 'n' for no.");
-                        }
+                        Environment.Exit(0);
                     }
-                    catch
+                    else if (input == "y")
                     {
-                        Console.WriteLine("Wrong input. Use 'y' for yes, or 'n' for no.");
+                        Console.Clear();
+                        break;
                     }
                 }
                 i = 0;
