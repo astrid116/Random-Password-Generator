@@ -22,9 +22,9 @@ namespace Random_Password_Generator
 
             while (true)
             {
-                Console.Write("Do you want to use letters? (y/n): ");
                 while (true)
                 {
+                    Console.Write("Do you want to use letters? (y/n): ");
                     input = Console.ReadLine();
                     try
                     {
@@ -45,9 +45,9 @@ namespace Random_Password_Generator
                     }
                 }
 
-                Console.Write("Do you want to use numbers? (y/n): ");
                 while (true)
                 {
+                    Console.Write("Do you want to use numbers? (y/n): ");
                     input = Console.ReadLine();
                     try
                     {
@@ -68,9 +68,9 @@ namespace Random_Password_Generator
                     }
                 }
 
-                Console.Write("Do you want to use special characters? (y/n): ");
                 while (true)
                 {
+                    Console.Write("Do you want to use special characters? (y/n): ");
                     input = Console.ReadLine();
                     try
                     {
@@ -91,9 +91,9 @@ namespace Random_Password_Generator
                     }
                 }
 
-                Console.Write("Specify the character limit: ");
                 while (true)
                 {
+                    Console.Write("Specify the character limit: ");
                     input = Console.ReadLine();
                     try
                     {
@@ -155,9 +155,9 @@ namespace Random_Password_Generator
 
 
 
-                Console.Write("\nDo you want to generate an another password? (y/n): ");
                 try
                 {
+                    Console.Write("\nDo you want to generate an another password? (y/n): ");
                     input = Console.ReadLine();
                     if (input == "n")
                     {
