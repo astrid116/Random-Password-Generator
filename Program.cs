@@ -101,7 +101,7 @@ namespace Random_Password_Generator
                         if (useAbc)
                         {
                             randomIndex = rnd.Next(0, abcArr.Length);
-                            randomChar = abcArr[randomIndex].ToString();
+                            randomChar = abcArr[randomIndex];
                             passwd[i] = randomChar;
                         }
                     }
@@ -110,7 +110,7 @@ namespace Random_Password_Generator
                         if (useNum)
                         {
                             randomIndex = rnd.Next(0, numArr.Length);
-                            randomChar = numArr[randomIndex].ToString();
+                            randomChar = numArr[randomIndex];
                             passwd[i] = randomChar;
                         }
                     }
@@ -119,7 +119,7 @@ namespace Random_Password_Generator
                         if (useSpec)
                         {
                             randomIndex = rnd.Next(0, specArr.Length);
-                            randomChar = specArr[randomIndex].ToString();
+                            randomChar = specArr[randomIndex];
                             passwd[i] = randomChar;
                         }
                     }
