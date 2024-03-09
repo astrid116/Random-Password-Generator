@@ -96,32 +96,23 @@ namespace Random_Password_Generator
                 do
                 {
                     randomObj = rnd.Next(1, 4);
-                    if (randomObj == 1)
+                    if (randomObj == 1 && useAbc)
                     {
-                        if (useAbc)
-                        {
-                            randomIndex = rnd.Next(0, abcArr.Length);
-                            randomChar = abcArr[randomIndex];
-                            passwd[i] = randomChar;
-                        }
+                        randomIndex = rnd.Next(0, abcArr.Length);
+                        randomChar = abcArr[randomIndex];
+                        passwd[i] = randomChar;
                     }
-                    else if (randomObj == 2)
+                    else if (randomObj == 2 && useNum)
                     {
-                        if (useNum)
-                        {
-                            randomIndex = rnd.Next(0, numArr.Length);
-                            randomChar = numArr[randomIndex];
-                            passwd[i] = randomChar;
-                        }
+                        randomIndex = rnd.Next(0, numArr.Length);
+                        randomChar = numArr[randomIndex];
+                        passwd[i] = randomChar;
                     }
-                    else if (randomObj == 3)
+                    else if (randomObj == 3 && useSpec)
                     {
-                        if (useSpec)
-                        {
-                            randomIndex = rnd.Next(0, specArr.Length);
-                            randomChar = specArr[randomIndex];
-                            passwd[i] = randomChar;
-                        }
+                         randomIndex = rnd.Next(0, specArr.Length);
+                         randomChar = specArr[randomIndex];
+                         passwd[i] = randomChar;
                     }
                     i++;
                 } while (i < charLimit);
