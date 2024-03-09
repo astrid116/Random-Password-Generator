@@ -7,9 +7,9 @@ namespace Random_Password_Generator
         static void Main(string[] args)
         {
             Random rnd = new Random();
-            string[] abcArr= {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            string[] abcArr= {"a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z" };
             string[] numArr = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-            string[] specArr = { "+", "!", "%", "/", "=", ",", "?", ".", ":", "-", "_" };
+            string[] specArr = { "+", "!", "%", "/", "=", ",", "?", ".", ":", "-", "_", "%", ";", "*", "#", "@", "[", "]", "(", ")", "{", "}", "~", "´", "'" };
             string input;
             int charLimit;
             bool useAbc;
@@ -93,7 +93,7 @@ namespace Random_Password_Generator
 
                 while (true)
                 {
-                    Console.Write("Specify the character limit: ");
+                    Console.Write("Specify the password limit: ");
                     input = Console.ReadLine();
                     try
                     {
@@ -146,31 +146,39 @@ namespace Random_Password_Generator
                     }
                     i++;
                 }
-                Console.Write("\nYour password is: ");
+
+                Console.Write("\n\nYour password is: ");
                 for (int j = 0; j < passwd.Length; j++)
                 {
                     Console.Write(passwd[j]);
                 }
+                
 
 
-
-
-                try
+                while (true)
                 {
-                    Console.Write("\nDo you want to generate an another password? (y/n): ");
-                    input = Console.ReadLine();
-                    if (input == "n")
+                    try
                     {
-                        Environment.Exit(0);
+                        Console.Write("\n\nDo you want to generate an another password? (y/n): ");
+                        input = Console.ReadLine();
+                        if (input == "n")
+                        {
+                            Environment.Exit(0);
+                        }
+                        else if (input == "y")
+                        {
+                            Console.Clear();
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong input. Use 'y' for yes, or 'n' for no.");
+                        }
                     }
-                    else if (input == "y")
+                    catch
                     {
-                        Console.Clear();
+                        Console.WriteLine("Wrong input. Use 'y' for yes, or 'n' for no.");
                     }
-                }
-                catch
-                {
-                    Console.WriteLine("Wrong input format. Use 'y' for yes, or 'n' for no.");
                 }
                 i = 0;
             }
