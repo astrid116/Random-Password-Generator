@@ -93,7 +93,7 @@ namespace Random_Password_Generator
                 }
 
                 var passwd = new string[charLimit];
-                while (i < charLimit)
+                do
                 {
                     randomObj = rnd.Next(1, 4);
                     if (randomObj == 1)
@@ -124,19 +124,20 @@ namespace Random_Password_Generator
                         }
                     }
                     i++;
-                }
+                } while (i < charLimit);
+                i = 0;
 
                 Console.Write("\n\nYour password is: ");
                 for (int j = 0; j < passwd.Length; j++)
                 {
                     Console.Write(passwd[j]);
                 }
-                
 
 
+                Console.WriteLine("\n\n");
                 while (true)
                 {
-                    Console.Write("\n\nDo you want to generate an another password? (y/n): ");
+                    Console.Write("Do you want to generate an another password? (y/n): ");
                     input = Console.ReadLine();
                     if (input == "n")
                     {
@@ -148,7 +149,6 @@ namespace Random_Password_Generator
                         break;
                     }
                 }
-                i = 0;
             }
         }
     }
