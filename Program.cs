@@ -7,17 +7,17 @@ namespace Random_Password_Generator
         static void Main(string[] args)
         {
             Random rnd = new Random();
-            string[] abcArr= {"a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z" };
+            string input;
+            string[] abcArr = { "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G", "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N", "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U", "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z" };
             string[] numArr = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
             string[] specArr = { "+", "!", "%", "/", "=", ",", "?", ".", ":", "-", "_", "%", ";", "*", "#", "@", "[", "]", "(", ")", "{", "}", "~", "´", "'" };
-            string input;
-            int charLimit;
             bool useAbc;
             bool useNum;
             bool useSpec;
+            int charLimit;
             int randomObj;
             int randomIndex;
-            string randomChar;
+
 
             while (true)
             {
@@ -71,10 +71,10 @@ namespace Random_Password_Generator
 
                 while (true)
                 {
+                    Console.Write("Specify the password limit: ");
+                    input = Console.ReadLine();
                     try
                     {
-                        Console.Write("Specify the password limit: ");
-                        input = Console.ReadLine();
                         charLimit = Convert.ToInt32(input);
                         if (charLimit <= 0)
                         {
@@ -97,44 +97,41 @@ namespace Random_Password_Generator
                 do
                 {
                     randomObj = rnd.Next(1, 4);
-                    if (randomObj == 1)
+                    switch (randomObj)
                     {
-                        if (useAbc)
-                        {
-                            randomIndex = rnd.Next(0, abcArr.Length);
-                            randomChar = abcArr[randomIndex];
-                            passwd[i] = randomChar;
-                        }
-                        else
-                        {
-                            i--;
-                        }
-                    }
-                    else if (randomObj == 2)
-                    {
-                        if (useNum)
-                        {
-                            randomIndex = rnd.Next(0, numArr.Length);
-                            randomChar = numArr[randomIndex];
-                            passwd[i] = randomChar;
-                        }
-                        else
-                        {
-                            i--;
-                        }
-                    }
-                    else if (randomObj == 3)
-                    {
-                        if (useSpec)
-                        {
-                            randomIndex = rnd.Next(0, specArr.Length);
-                            randomChar = specArr[randomIndex];
-                            passwd[i] = randomChar;
-                        }
-                        else
-                        {
-                            i--;
-                        }
+                        case 1:
+                            if (useAbc)
+                            {
+                                randomIndex = rnd.Next(0, abcArr.Length);
+                                passwd[i] = abcArr[randomIndex];
+                            }
+                            else
+                            {
+                                i--;
+                            }
+                            break;
+                        case 2:
+                            if (useNum)
+                            {
+                                randomIndex = rnd.Next(0, numArr.Length);
+                                passwd[i] = numArr[randomIndex];
+                            }
+                            else
+                            {
+                                i--;
+                            }
+                            break;
+                        case 3:
+                            if (useSpec)
+                            {
+                                randomIndex = rnd.Next(0, specArr.Length);
+                                passwd[i] = specArr[randomIndex];
+                            }
+                            else
+                            {
+                                i--;
+                            }
+                            break;
                     }
                     i++;
                 } while (i < charLimit);
@@ -152,14 +149,14 @@ namespace Random_Password_Generator
                 {
                     Console.Write("Do you want to generate an another password? (y/n): ");
                     input = Console.ReadLine();
-                    if (input == "n")
-                    {
-                        Environment.Exit(0);
-                    }
-                    else if (input == "y")
+                    if (input == "y")
                     {
                         Console.Clear();
                         break;
+                    }
+                    else if (input == "n")
+                    {
+                        Environment.Exit(0);
                     }
                 }
             }
