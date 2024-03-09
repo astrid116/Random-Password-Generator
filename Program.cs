@@ -18,7 +18,6 @@ namespace Random_Password_Generator
             int randomObj;
             int randomIndex;
             string randomChar;
-            int i = 0;
 
             while (true)
             {
@@ -92,6 +91,8 @@ namespace Random_Password_Generator
                     }
                 }
 
+
+                int i = 0;
                 var passwd = new string[charLimit];
                 do
                 {
@@ -116,13 +117,13 @@ namespace Random_Password_Generator
                     }
                     i++;
                 } while (i < charLimit);
-                i = 0;
 
                 Console.Write("\n\nYour password is: ");
                 for (int j = 0; j < passwd.Length; j++)
                 {
                     Console.Write(passwd[j]);
                 }
+
 
 
                 Console.WriteLine("\n\n");
