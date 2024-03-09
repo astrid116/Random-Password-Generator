@@ -97,23 +97,44 @@ namespace Random_Password_Generator
                 do
                 {
                     randomObj = rnd.Next(1, 4);
-                    if (randomObj == 1 && useAbc)
+                    if (randomObj == 1)
                     {
-                        randomIndex = rnd.Next(0, abcArr.Length);
-                        randomChar = abcArr[randomIndex];
-                        passwd[i] = randomChar;
+                        if (useAbc)
+                        {
+                            randomIndex = rnd.Next(0, abcArr.Length);
+                            randomChar = abcArr[randomIndex];
+                            passwd[i] = randomChar;
+                        }
+                        else
+                        {
+                            i--;
+                        }
                     }
-                    else if (randomObj == 2 && useNum)
+                    else if (randomObj == 2)
                     {
-                        randomIndex = rnd.Next(0, numArr.Length);
-                        randomChar = numArr[randomIndex];
-                        passwd[i] = randomChar;
+                        if (useNum)
+                        {
+                            randomIndex = rnd.Next(0, numArr.Length);
+                            randomChar = numArr[randomIndex];
+                            passwd[i] = randomChar;
+                        }
+                        else
+                        {
+                            i--;
+                        }
                     }
-                    else if (randomObj == 3 && useSpec)
+                    else if (randomObj == 3)
                     {
-                         randomIndex = rnd.Next(0, specArr.Length);
-                         randomChar = specArr[randomIndex];
-                         passwd[i] = randomChar;
+                        if (useSpec)
+                        {
+                            randomIndex = rnd.Next(0, specArr.Length);
+                            randomChar = specArr[randomIndex];
+                            passwd[i] = randomChar;
+                        }
+                        else
+                        {
+                            i--;
+                        }
                     }
                     i++;
                 } while (i < charLimit);
