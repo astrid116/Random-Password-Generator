@@ -16,11 +16,38 @@ namespace Random_Password_Generator
             bool useSpec;
             int charLimit;
             int randomObj;
-            int randomIndex;
 
 
             while (true)
             {
+                while (true)
+                {
+                    Console.WriteLine("Commands:");
+                    Console.WriteLine("gen, list, remove");
+                    Console.Write("> ");
+                    input = Console.ReadLine();
+                    if (input == "gen")
+                    {
+                        break;
+                    }
+                    else if (input == "list")
+                    {
+                        Console.Write("Specify the platform, or write '*' to list all the passwords: ");
+                        input = Console.ReadLine();
+                        ListPassword(input);
+                    }
+                    else if (input == "remove")
+                    {
+                        string platform;
+                        string username;
+                        string password;
+                        Console.Write("Specify the password that you want to delete: ");
+                        password = Console.ReadLine();
+                        RemovePassword(password);
+                    }
+                }
+
+
                 while (true)
                 {
                     Console.Write("Do you want to use letters? (y/n): ");
@@ -139,12 +166,25 @@ namespace Random_Password_Generator
                     Console.Write(passwd[j]);
                 }
 
-
-
-                Console.WriteLine("\n\n");
+                Console.Write("\nDo you want to save the password? (y/n): ");
                 while (true)
                 {
-                    Console.Write("Do you want to generate an another password? (y/n): ");
+                    input = Console.ReadLine();
+                    if (input == "y")
+                    {
+                        SavePassword(passwd);
+                        break;
+                    }
+                    else if (input == "n")
+                    {
+                        break;
+                    }
+                }
+
+                Console.Write("\n");
+                while (true)
+                {
+                    Console.Write("Do you want to generate an another password, or list a password? (y/n): ");
                     input = Console.ReadLine();
                     if (input == "y")
                     {
@@ -156,6 +196,116 @@ namespace Random_Password_Generator
                         Environment.Exit(0);
                     }
                 }
+            }
+        }
+
+        static void SavePassword(string[] passwd)
+        {
+            string savedPasswdPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Saved_Passwd.txt";
+            string platform;
+            string username;
+
+            if (!File.Exists(savedPasswdPath))
+            {
+                File.Create(savedPasswdPath);
+                File.SetAttributes(savedPasswdPath, FileAttributes.Hidden);
+            }
+
+            Console.Write("Specify the platform: ");
+            platform = Console.ReadLine();
+
+            Console.Write("Specify the username: ");
+            username = Console.ReadLine();
+
+            File.SetAttributes(savedPasswdPath, FileAttributes.Normal);
+            using (StreamWriter sw = new StreamWriter(savedPasswdPath, true))
+            {
+                sw.Write("Platform: " + platform + " : Username: " + username + " : ");
+                sw.Write("Password: ");
+                foreach (string s in passwd)
+                {
+                    sw.Write(s);
+                }
+                sw.Write("\n");
+                sw.Close();
+            }
+            File.SetAttributes(savedPasswdPath, FileAttributes.Hidden);
+        }
+
+        static void ListPassword(string platform)
+        {
+            string savedPasswdPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Saved_Passwd.txt";
+
+            if (!File.Exists(savedPasswdPath))
+            {
+                Console.WriteLine("Currently you don't have any saved passwords.");
+            }
+            else
+            {
+                Console.WriteLine("\n");
+                if (platform == "*")
+                {
+                    using (StreamReader sr = new StreamReader(savedPasswdPath))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            Console.WriteLine(line + "\n");
+                        }
+                    }
+                }
+                else
+                {
+                    using (StreamReader sr = new StreamReader(savedPasswdPath))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line == "Platform: " + platform)
+                            {
+                                Console.WriteLine(line);
+                                line = sr.ReadLine();
+                                Console.WriteLine(line);
+                                line = sr.ReadLine();
+                                Console.WriteLine(line);
+                                Console.WriteLine("\n");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        static void RemovePassword(string password)
+        {
+            string savedPasswdPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Saved_Passwd.txt";
+            string lineToDelete;
+
+            if (!File.Exists(savedPasswdPath))
+            {
+                Console.WriteLine("Currently you don't have any saved passwords.");
+            }
+            else
+            {
+                string tempFile = Path.GetTempFileName();
+
+                File.SetAttributes(savedPasswdPath, FileAttributes.Normal);
+                using (var sr = new StreamReader(savedPasswdPath))
+                using (var sw = new StreamWriter(tempFile))
+                {
+                    string line;
+
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (!line.Contains(password))
+                        {
+                            sw.WriteLine(line);
+                        }
+                    }
+                }
+                File.Delete(savedPasswdPath);
+                File.Move(tempFile, savedPasswdPath);
+                File.SetAttributes(savedPasswdPath, FileAttributes.Hidden);
             }
         }
     }
