@@ -260,12 +260,8 @@ namespace Random_Password_Generator
                         string line;
                         while ((line = sr.ReadLine()) != null)
                         {
-                            if (line == "Platform: " + platform)
+                            if (line.Contains("Platform: " + platform))
                             {
-                                Console.WriteLine(line);
-                                line = sr.ReadLine();
-                                Console.WriteLine(line);
-                                line = sr.ReadLine();
                                 Console.WriteLine(line);
                                 Console.WriteLine("\n");
                             }
