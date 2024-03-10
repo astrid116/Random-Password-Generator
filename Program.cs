@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Random_Password_Generator
 {
@@ -38,8 +39,6 @@ namespace Random_Password_Generator
                     }
                     else if (input == "remove")
                     {
-                        string platform;
-                        string username;
                         string password;
                         Console.Write("Specify the password that you want to delete: ");
                         password = Console.ReadLine();
@@ -279,7 +278,6 @@ namespace Random_Password_Generator
         static void RemovePassword(string password)
         {
             string savedPasswdPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Saved_Passwd.txt";
-            string lineToDelete;
 
             if (!File.Exists(savedPasswdPath))
             {
