@@ -40,7 +40,7 @@ namespace Random_Password_Generator
                     else if (input == "remove")
                     {
                         string password;
-                        Console.Write("Specify the password that you want to delete: ");
+                        Console.Write("Specify the password that you want to delete, or write '*' to clear all the saved passwords: ");
                         password = Console.ReadLine();
                         RemovePassword(password);
                     }
@@ -200,6 +200,7 @@ namespace Random_Password_Generator
 
         static void SavePassword(string[] passwd)
         {
+            DateTime currentTime = DateTime.Now;
             string savedPasswdPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Saved_Passwd.txt";
             string platform;
             string username;
@@ -219,13 +220,13 @@ namespace Random_Password_Generator
             File.SetAttributes(savedPasswdPath, FileAttributes.Normal);
             using (StreamWriter sw = new StreamWriter(savedPasswdPath, true))
             {
-                sw.Write("Platform: " + platform + " : Username: " + username + " : ");
+                sw.Write("Platform: {0} ; Username: {1} ; ", platform, username);
                 sw.Write("Password: ");
                 foreach (string s in passwd)
                 {
                     sw.Write(s);
                 }
-                sw.Write("\n");
+                sw.Write(" ; Password Generated At: {0}\n", currentTime);
                 sw.Close();
             }
             File.SetAttributes(savedPasswdPath, FileAttributes.Hidden);
@@ -251,6 +252,7 @@ namespace Random_Password_Generator
                         {
                             Console.WriteLine(line + "\n");
                         }
+                        sr.Close();
                     }
                 }
                 else
@@ -266,6 +268,7 @@ namespace Random_Password_Generator
                                 Console.WriteLine("\n");
                             }
                         }
+                        sr.Close();
                     }
                 }
             }
@@ -281,25 +284,40 @@ namespace Random_Password_Generator
             }
             else
             {
-                string tempFile = Path.GetTempFileName();
-
-                File.SetAttributes(savedPasswdPath, FileAttributes.Normal);
-                using (var sr = new StreamReader(savedPasswdPath))
-                using (var sw = new StreamWriter(tempFile))
+                if (password == "*")
                 {
-                    string line;
-
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        if (!line.Contains(password))
-                        {
-                            sw.WriteLine(line);
-                        }
-                    }
+                    File.SetAttributes(savedPasswdPath, FileAttributes.Normal);
+                    using (var sw = new StreamWriter(savedPasswdPath))
+                    File.SetAttributes(savedPasswdPath, FileAttributes.Hidden);
                 }
-                File.Delete(savedPasswdPath);
-                File.Move(tempFile, savedPasswdPath);
-                File.SetAttributes(savedPasswdPath, FileAttributes.Hidden);
+                else if (password == "")
+                {
+                    Console.WriteLine("Invalid input.\n");
+                }
+                else
+                {
+                    string tempFile = Path.GetTempFileName();
+
+                    File.SetAttributes(savedPasswdPath, FileAttributes.Normal);
+                    using (var sr = new StreamReader(savedPasswdPath))
+                    using (var sw = new StreamWriter(tempFile))
+                    {
+                        string line;
+
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (!line.Contains(password))
+                            {
+                                sw.WriteLine(line);
+                            }
+                        }
+                        sw.Close();
+                        sr.Close();
+                    }
+                    File.Delete(savedPasswdPath);
+                    File.Move(tempFile, savedPasswdPath);
+                    File.SetAttributes(savedPasswdPath, FileAttributes.Hidden);
+                }
             }
         }
     }
